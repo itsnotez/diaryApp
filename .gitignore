@@ -1,0 +1,26 @@
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env*
+
+# Backend
+backend/build/
+backend/.gradle/
+backend/bin/
+*.jar
+*.class
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# gstack QA reports
+.gstack/
+
+# Spring
+backend/src/main/resources/application-local.yml

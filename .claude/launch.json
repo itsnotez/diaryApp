@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Frontend (Vite)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "frontend", "run", "dev"],
+      "port": 5173
+    },
+    {
+      "name": "Backend (Spring Boot)",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd backend && ./gradlew bootRun"],
+      "port": 8080
+    }
+  ]
+}
