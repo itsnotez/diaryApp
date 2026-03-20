@@ -58,7 +58,7 @@ Base URL: `http://localhost:8080`. CORS configured for `http://localhost:5173`.
 
 ## Data Model
 
-Diary entry fields: `id`, `userId`, `content` (TEXT), `moodScore` (1-5), `weather` (sunny/cloudy/rainy/snowy/windy), `temperature` (°C), `location`, `createdAt`.
+Diary entry fields: `id`, `userId`, `content` (TEXT), `mood_score` (1-5, JSON key is `mood_score`), `weather` (sunny/cloudy/rainy/snowy/windy), `temperature` (°C), `location`, `createdAt`.
 
 ## Development Notes
 
@@ -67,3 +67,5 @@ Diary entry fields: `id`, `userId`, `content` (TEXT), `moodScore` (1-5), `weathe
 - Spring Security is fully permissive — no auth implemented yet
 - Hibernate DDL mode is `update` (auto-creates/alters tables)
 - Styling: Tailwind utility-first, dark mode via `dark:` prefix, mobile-first responsive
+- `GET /api/diaries/{id}` is scoped to `userId` — prevents users from accessing each other's entries
+- `POST /api/diaries` uses explicit Builder pattern — `userId` is always set server-side, not from request body
