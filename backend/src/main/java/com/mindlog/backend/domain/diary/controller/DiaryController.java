@@ -4,7 +4,6 @@ import com.mindlog.backend.domain.diary.entity.Diary;
 import com.mindlog.backend.domain.diary.repository.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,10 +24,10 @@ public class DiaryController {
     }
 
     @PostMapping
-    public Diary createDiary(@Valid @RequestBody Diary diary) {
+    public Diary createDiary(@RequestBody Diary diary) {
         // TODO: Set userId from Security Context
         Long dummyUserId = 1L;
-        Diary toSave = Diary.builder()
+        diary = Diary.builder()
                 .userId(dummyUserId)
                 .content(diary.getContent())
                 .moodScore(diary.getMoodScore())
@@ -36,14 +35,13 @@ public class DiaryController {
                 .temperature(diary.getTemperature())
                 .location(diary.getLocation())
                 .build();
-        return diaryRepository.save(toSave);
+        return diaryRepository.save(diary);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Diary> getDiary(@PathVariable Long id) {
         // TODO: Get userId from Security Context
-        Long dummyUserId = 1L;
-        return diaryRepository.findByIdAndUserId(id, dummyUserId)
+        return diaryRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }

@@ -28,7 +28,7 @@ export const useDiaryStore = defineStore('diary', () => {
   }
 
   function addDiary(diary) {
-    const newId = diaries.value.length > 0 ? diaries.value.reduce((max, d) => d.id > max ? d.id : max, 0) + 1 : 1;
+    const newId = diaries.value.length > 0 ? Math.max(...diaries.value.map(d => d.id)) + 1 : 1;
     diaries.value.unshift({
       ...diary,
       id: newId,

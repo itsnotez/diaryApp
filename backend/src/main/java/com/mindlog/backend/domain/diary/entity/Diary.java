@@ -1,6 +1,5 @@
 package com.mindlog.backend.domain.diary.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,13 +24,12 @@ public class Diary {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content; // Client-side Encrypted String
 
-    @JsonProperty("mood_score")
     private Integer moodScore;
-    
+
     private String weather;
 
     private Double temperature;
-    
+
     private String location;
 
     @CreationTimestamp

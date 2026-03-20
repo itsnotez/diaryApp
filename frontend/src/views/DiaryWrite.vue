@@ -8,12 +8,12 @@
     </header>
 
     <form @submit.prevent="saveDiary" class="space-y-6">
-      
+
       <!-- Date Picker -->
       <div>
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date</label>
-        <input 
-          type="date" 
+        <input
+          type="date"
           v-model="form.date"
           class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
           required
@@ -24,9 +24,9 @@
       <div>
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">How are you feeling?</label>
         <div class="flex space-x-4 mb-6">
-          <button 
+          <button
             type="button"
-            v-for="score in 5" 
+            v-for="score in 5"
             :key="score"
             @click="form.mood_score = score"
             :class="[
@@ -42,18 +42,18 @@
       <!-- Weather & Temperature -->
       <div class="grid grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex justify-between items-center gap-2">
-            <span>Weather</span>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex justify-between items-center">
+            Weather
             <button
               type="button"
               @click="fetchWeatherForLocation"
-              class="shrink-0 text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition whitespace-nowrap"
+              class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition"
               :disabled="weatherLoading"
             >
               {{ weatherLoading ? 'Loading...' : '📍 Get / Refresh' }}
             </button>
           </label>
-          <select 
+          <select
             v-model="form.weather"
             class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
           >
@@ -66,8 +66,8 @@
         </div>
         <div>
            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Temp (°C)</label>
-           <input 
-             type="number" 
+           <input
+             type="number"
              v-model="form.temperature"
              class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
              placeholder="24"
@@ -78,9 +78,9 @@
       <!-- Content -->
       <div>
         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Dear Diary...</label>
-        <textarea 
+        <textarea
           v-model="form.content"
-          rows="10" 
+          rows="10"
           class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white resize-none"
           placeholder="Write your thoughts here..."
           required
@@ -91,8 +91,7 @@
       <div class="flex justify-end pt-4">
         <button
           type="submit"
-          :disabled="loading"
-          class="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 px-8 rounded-lg transition shadow-lg flex items-center"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition shadow-lg flex items-center"
         >
           <span v-if="loading" class="animate-spin mr-2">⏳</span>
           Save Entry
@@ -144,13 +143,13 @@ onMounted(() => {
     } else {
       router.push('/');
     }
-  } 
+  }
   // Check if creating for specific date
   else {
     if (route.query.date) {
       form.value.date = route.query.date;
     }
-    
+
     // Auto-fetch weather if date is today (and no manual override yet)
     const todayStr = new Date().toISOString().split('T')[0];
     if (form.value.date === todayStr && !form.value.temperature) {
@@ -166,9 +165,9 @@ async function fetchWeatherForLocation() {
     alert("Geolocation is not supported by your browser.");
     return;
   }
-  
+
   weatherLoading.value = true;
-  
+
   navigator.geolocation.getCurrentPosition(async (position) => {
     const { latitude, longitude } = position.coords;
     try {
@@ -197,16 +196,16 @@ async function fetchWeatherForLocation() {
 
 async function saveDiary() {
   loading.value = true;
-  
+
   if (isEditing.value) {
     store.updateDiary(route.params.id, form.value);
   } else {
     store.addDiary(form.value);
   }
-  
+
   // Simulate network delay
   await new Promise(r => setTimeout(r, 500));
-  
+
   loading.value = false;
   router.push('/');
 }
