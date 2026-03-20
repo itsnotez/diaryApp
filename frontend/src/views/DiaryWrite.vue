@@ -42,12 +42,12 @@
       <!-- Weather & Temperature -->
       <div class="grid grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex justify-between items-center">
-            Weather
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 flex justify-between items-center gap-2">
+            <span>Weather</span>
             <button
               type="button"
               @click="fetchWeatherForLocation"
-              class="text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition"
+              class="shrink-0 text-xs bg-blue-100 hover:bg-blue-200 text-blue-700 px-2 py-1 rounded transition whitespace-nowrap"
               :disabled="weatherLoading"
             >
               {{ weatherLoading ? 'Loading...' : '📍 Get / Refresh' }}
@@ -91,7 +91,8 @@
       <div class="flex justify-end pt-4">
         <button
           type="submit"
-          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition shadow-lg flex items-center"
+          :disabled="loading"
+          class="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold py-3 px-8 rounded-lg transition shadow-lg flex items-center"
         >
           <span v-if="loading" class="animate-spin mr-2">⏳</span>
           Save Entry
